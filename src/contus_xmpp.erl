@@ -22,7 +22,7 @@
 %%%
 %%%-------------------------------------------------------------------
 
--module(xmpp).
+-module(contus_xmpp).
 -behaviour(application).
 -dialyzer({nowarn_function, get_els/1}).
 
