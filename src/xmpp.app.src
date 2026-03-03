@@ -22,15 +22,15 @@
 %%%
 %%%-------------------------------------------------------------------
 
-{application, contus_xmpp,
+{application, xmpp,
  [{description,  "Erlang/Elixir XMPP parsing and serialization library"},
-  {vsn,          "1.0.1"},
+  {vsn,          "1.0.2"},
   {modules,      []},
   {registered,   []},
   {applications, [asn1, compiler, kernel, public_key, stdlib, syntax_tools,
                   idna,
                   ezlib, fast_tls, fast_xml, p1_utils, stringprep]},
-  {mod,          {contus_xmpp, []}},
+  {mod,          {xmpp, []}},
   {env,          []},
 
   %% hex.pm packaging:
