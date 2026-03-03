@@ -199,6 +199,7 @@
 -record(roster_item, {jid :: jid:jid(),
                       name = <<>> :: binary(),
                       groups = [] :: [binary()],
+                      profiles = <<>> :: binary(),
                       subscription = none :: 'both' | 'from' | 'none' | 'remove' | 'to',
                       ask :: 'subscribe' | 'undefined',
                       approved = false :: boolean(),
@@ -307,13 +308,191 @@
                          signature :: binary()}).
 -type x509_challenge() :: #x509_challenge{}.
 
--record(mix_leave, {xmlns = <<>> :: binary()}).
+-record(mix_leave, {admin_user = <<>> :: binary(),
+                    from_jid = <<>> :: binary(),
+                    xmlns = <<>> :: binary()}).
 -type mix_leave() :: #mix_leave{}.
 
 -record(mix_client_leave, {channel :: undefined | jid:jid(),
                            leave :: #mix_leave{},
                            xmlns = <<>> :: binary()}).
 -type mix_client_leave() :: #mix_client_leave{}.
+
+-record(timestampmsg, {id =  <<>> :: binary(),
+                           time =  <<>> :: binary(),
+                            disappear_time = <<>> :: binary()}).
+-type timestampmsg() :: #timestampmsg{}.
+
+-record(chatcontent, {block_user = <<>> :: binary(),
+                           message_type =  <<>> :: binary(),
+                            topic_id = <<>> :: binary(),
+                            meta_data = <<>> :: binary(),
+                            edit_msg_id = <<>> :: binary(),
+                            view_once = <<>> :: binary(),
+                            mention_list = <<>> :: binary(),
+                            scheduled_datetime = <<>> :: binary(),
+                           disappear_time = <<>> :: binary()}).
+-type chatcontent() :: #chatcontent{}.
+
+-record(acknowledge, {id = <<>> :: binary(),
+                           sent_to =  <<>> :: binary(),
+                            type = <<>> :: binary(),
+                            disappear_time = <<>> :: binary()}).
+-type acknowledge() :: #acknowledge{}.
+
+-record(delivered, {id = <<>> :: binary(),
+                           message_status =  <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            time = <<>> :: binary()}).
+-type delivered() :: #delivered{}.
+
+-record(seen, {id = <<>> :: binary(),
+                           message_status =  <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            time = <<>> :: binary()}).
+-type seen() :: #seen{}.
+
+-record(recall, {id = <<>> :: binary(),
+                           chat_type =  <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            time = <<>> :: binary()}).
+-type recall() :: #recall{}.
+
+-record(poll, {poll_id = <<>> :: binary(),
+               voter_user_id =  <<>> :: binary(),
+               vote_id = <<>> :: binary(),
+               status = <<>> :: binary(),
+               poll_option_id = <<>> :: binary(),
+               chat_type = <<>> :: binary(),
+               to_user = <<>> :: binary()}).
+-type poll() :: #poll{}.
+
+-record(media_call_activities, {type = <<>> :: binary(),
+               room_id =  <<>> :: binary(),
+               call_status = <<>> :: binary(),
+               call_type = <<>> :: binary(),
+               session_status = <<>> :: binary(),
+               call_time = <<>> :: binary(),
+               call_mode = <<>> :: binary(),
+               call_from =  <<>> :: binary(),
+               start_time = <<>> :: binary(),
+               group_id = <<>> :: binary(),
+               call_link = <<>> :: binary(),
+               caller_name = <<>> :: binary(),
+               end_time =  <<>> :: binary(),
+               meta_data = <<>> :: binary(),
+               media_call_type = <<>> :: binary(),
+               call_kind = <<>> :: binary(),
+               status = <<>> :: binary(),
+            result_type = <<>> :: binary()}).
+-type media_call_activities() :: #media_call_activities{}.
+
+-record(user_fav, {chat_type = <<>> :: binary(),
+               message_id =  <<>> :: binary(),
+               to_user = <<>> :: binary(),
+               type = <<>> :: binary(),
+               status = <<>> :: binary(),
+               result_type = <<>> :: binary(),
+               sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type user_fav() :: #user_fav{}.
+
+-record(user_activities, {remove_user = <<>> :: binary(),
+               type =  <<>> :: binary(),
+               id = <<>> :: binary(),
+               license_data = <<>> :: binary(),
+               message_from = <<>> :: binary(),
+               message_id = <<>> :: binary(),
+               message_type = <<>> :: binary(),
+               message = <<>> :: binary(),
+               position = <<>> :: binary(),
+               send_seen = <<>> :: binary(),
+               limit = <<>> :: binary(),
+               row_id = <<>> :: binary(),
+               send_to = <<>> :: binary(),
+               send_from = <<>> :: binary(),
+               favourite = <<>> :: binary(),
+               delete_type = <<>> :: binary(),
+               to_user = <<>> :: binary(),
+               from_user = <<>> :: binary(),
+               mode = <<>> :: binary(),
+               chat_type = <<>> :: binary(),
+               reply_id = <<>> :: binary(),
+               call_status = <<>> :: binary(),
+               call_type = <<>> :: binary(),
+               caller_device = <<>> :: binary(),
+               call_id = <<>> :: binary(),
+               call_attend_status = <<>> :: binary(),
+               message_ids = <<>> :: binary(),
+               updated_at = <<>> :: binary(),
+               socket_id = <<>> :: binary(),
+               device_id = <<>> :: binary(),
+               password = <<>> :: binary(),
+               mute_status = <<>> :: binary(),
+               archive_status = <<>> :: binary(),
+               group_id = <<>> :: binary(),
+               calllog_ids = <<>> :: binary(),
+               last_msg_id = <<>> :: binary(),
+               poll_option_id = <<>> :: binary(),
+               voter_user_id = <<>> :: binary(),
+               poll_id = <<>> :: binary(),
+               vote_id = <<>> :: binary(),
+               edit_message_id = <<>> :: binary(),
+               remove_message_user = <<>> :: binary(),
+               archive = <<>> :: binary(),
+               block_status = <<>> :: binary(),
+               permission_status = <<>> :: binary(),
+               status = <<>> :: binary(),
+               meta_data = <<>> :: binary(),
+               topic_id = <<>> :: binary(),
+               topic_time = <<>> :: binary(),
+               user_list = <<>> :: binary(),
+               action = <<>> :: binary(),
+               mute_setting = <<>> :: binary(),
+               get_msg_info = <<>> :: binary(),
+               busy_message = <<>> :: binary(),
+               busy_status = <<>> :: binary(),
+               busy = <<>> :: binary(),
+               chat_id = <<>> :: binary(),
+               user_id = <<>> :: binary(),
+               disappear_time = <<>> :: binary(),
+               enabled = <<>> :: binary(),
+               result_type = <<>> :: binary(),
+               sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type user_activities() :: #user_activities{}.
+
+-record(view, {id = <<>> :: binary(),
+                           message_status =  <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            time = <<>> :: binary()}).
+-type view() :: #view{}.
+
+-record(mediacall, {room_id = <<>> :: binary(),
+                           call_type =  <<>> :: binary(),
+                            call_status = <<>> :: binary(),
+                            call_time = <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            call_link = <<>> :: binary(),
+                            caller_name = <<>> :: binary(),
+                            call_from = <<>> :: binary(),
+                            media_call_type = <<>> :: binary(),
+                            call_mode = <<>> :: binary(),
+                            meta_data = <<>> :: binary()}).
+-type mediacall() :: #mediacall{}.
+
+-record(group_query, {status = <<>> :: binary(),
+                           type =  <<>> :: binary(),
+                            admin_user = <<>> :: binary(),
+                            removeduser = <<>> :: binary(),
+                            group_id = <<>> :: binary(),
+                            ptt_status = <<>> :: binary(),
+                            message_id = <<>> :: binary(),
+                            channel_id = <<>> :: binary(),
+                            action = <<>> :: binary(),
+                            msgid = <<>> :: binary(),
+                            meta_data = <<>> :: binary(),
+                            result_type = <<>> :: binary(),
+                            sub_els = [] :: [xmpp_element() | fxml:xmlel()]}).
+-type group_query() :: #group_query{}.
 
 -record(s2s_bidi, {}).
 -type s2s_bidi() :: #s2s_bidi{}.
@@ -455,6 +634,8 @@
                   id = <<>> :: binary(),
                   sub_els = [] :: [xmpp_element() | fxml:xmlel()],
                   node = <<>> :: binary(),
+                  group_create = <<>> :: binary(),
+                  admin_user = <<>> :: binary(),
                   publisher = <<>> :: binary()}).
 -type ps_item() :: #ps_item{}.
 
@@ -541,6 +722,10 @@
 -record(mix_join, {id = <<>> :: binary(),
                    jid :: undefined | jid:jid(),
                    nick = <<>> :: binary(),
+                   owner = <<>> :: binary(),
+                   custom_attributes = <<>> :: binary(),
+                   message_id = <<>> :: binary(),
+                   group_create = <<>> :: binary(),
                    subscribe = [] :: [binary()],
                    xmlns = <<>> :: binary()}).
 -type mix_join() :: #mix_join{}.
@@ -958,6 +1143,7 @@
 -type x509_ca_list() :: #x509_ca_list{}.
 
 -record(mix_participant, {jid :: undefined | jid:jid(),
+                         sub_els = [] :: [xmpp_element() | fxml:xmlel()],
                           nick :: 'undefined' | binary()}).
 -type mix_participant() :: #mix_participant{}.
 
@@ -1229,6 +1415,7 @@
 
 -record(mix_client_join, {channel :: undefined | jid:jid(),
                           join :: #mix_join{},
+                          affiliation = <<>> :: binary(),
                           xmlns = <<>> :: binary()}).
 -type mix_client_join() :: #mix_client_join{}.
 
@@ -1270,8 +1457,48 @@
 
 -record(roster_query, {items = [] :: [#roster_item{}],
                        ver :: 'undefined' | binary(),
+                       contact_permission :: 'undefined' | binary(),
                        mix_annotate = false :: boolean()}).
 -type roster_query() :: #roster_query{}.
+
+-record(roster_vcard, {roster_nickname ::'undefined' | binary(),
+                 roster_name :: 'undefined' | binary(),
+                 roster_image :: 'undefined' | binary(),
+                 roster_mobilenumber :: 'undefined' | binary(),
+                 roster_thumbimage :: 'undefined' | binary(),
+                 roster_status :: 'undefined' | binary(),
+                 roster_is_admin_blocked :: 'undefined' | binary(),
+                 roster_email :: 'undefined' | binary(),
+                 roster_coverimg :: 'undefined' | binary(),
+                 roster_designation ::'undefined' | binary()}).
+-type roster_vcard() :: #roster_vcard{}.
+
+-record(roster_profile, {vCard = <<>> :: binary()}).
+-type roster_profile() :: #roster_profile{}.
+
+-record(roster_nickname, {roster_nickname = <<>> :: binary()}).
+-type roster_nickname() :: #roster_nickname{}.
+
+-record(roster_name, {roster_name = <<>> :: binary()}).
+-type roster_name() :: #roster_name{}.
+
+-record(roster_image, {roster_image = <<>> :: binary()}).
+-type roster_image() :: #roster_image{}.
+
+-record(roster_email, {roster_email = <<>> :: binary()}).
+-type roster_email() :: #roster_email{}.
+
+-record(roster_is_admin_blocked, {roster_is_admin_blocked = <<>> :: binary()}).
+-type roster_is_admin_blocked() :: #roster_is_admin_blocked{}.
+
+-record(roster_status, {roster_status = <<>> :: binary()}).
+-type roster_status() :: #roster_status{}.
+
+-record(roster_thumbimage, {roster_thumbimage = <<>> :: binary()}).
+-type roster_thumbimage() :: #roster_thumbimage{}.
+
+-record(roster_mobilenumber, {roster_mobilenumber = <<>> :: binary()}).
+-type roster_mobilenumber() :: #roster_mobilenumber{}.
 
 -record(muc_user, {decline :: 'undefined' | #muc_decline{},
                    destroy :: 'undefined' | #muc_destroy{},
